@@ -52,7 +52,7 @@ pub fn is_safe(board: &mut Vec<Vec<char>>, row: usize, col: usize) -> bool {
         j -= 1;
     }
 
-    true;
+    true
 }
 
 /// Solves the nqueens problem (recursive)
@@ -96,7 +96,7 @@ pub fn solve_nq_util(board: &mut Vec<Vec<char>>, col: usize) -> bool {
         }
     }
 
-    false;
+    false
 }
 
 /// nqueens solver function
@@ -130,7 +130,7 @@ pub fn nqueens(n: usize) -> Vec<Vec<char>> {
         return board;
     }
 
-    board;
+    board
 }
 
 #[cfg(test)]
