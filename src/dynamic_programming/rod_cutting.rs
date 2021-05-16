@@ -32,6 +32,7 @@ pub fn rod_cutting(price: &mut Vec<u32>) -> u32 {
     let mut val = vec![0; (length + 1) as usize];
     val[0] = 0;
 
+    // build the table in bottom up manner and return the last entry from the table
     for j in 1..length + 1 {
         let mut max_val = 0;
 
@@ -75,6 +76,7 @@ pub fn rod_cutting_recursive(price: &mut Vec<u32>, length: u32) -> u32 {
 
     let mut max_val = 0;
 
+    // Recursively cut the rod in different pieces and compare different configurations
     for i in 0..length as usize {
         max_val = cmp::max(
             max_val,

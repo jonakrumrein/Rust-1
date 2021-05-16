@@ -24,6 +24,10 @@
 /// There are no examples because this function is called inside the nqueens solver function.
 ///
 pub fn is_safe(board: &mut Vec<Vec<char>>, row: usize, col: usize) -> bool {
+    // NOTE:    This function is called when queens in column are already placed.
+    //          That's why we only need to check the left side.
+
+    // Check row on the left side
     for i in 0..col {
         if board[row][i] == 'Q' {
             return false;
@@ -33,6 +37,7 @@ pub fn is_safe(board: &mut Vec<Vec<char>>, row: usize, col: usize) -> bool {
     let mut i = row + 1;
     let mut j = col + 1;
 
+    // Check upper diagonal on the left side
     while i > 0 && j > 0 {
         if board[i - 1][j - 1] == 'Q' {
             return false;
@@ -44,6 +49,7 @@ pub fn is_safe(board: &mut Vec<Vec<char>>, row: usize, col: usize) -> bool {
     i = row + 1;
     j = col + 1;
 
+    // Check lower diagonal on left side
     while i < board.len() && j > 0 {
         if board[i - 1][j - 1] == 'Q' {
             return false;
@@ -80,18 +86,23 @@ pub fn is_safe(board: &mut Vec<Vec<char>>, row: usize, col: usize) -> bool {
 /// There are no examples because this function is called inside the nqueens solver function.
 ///
 pub fn solve_nq_util(board: &mut Vec<Vec<char>>, col: usize) -> bool {
+    // return true if all queens are placed
     if col >= board.len() {
         return true;
     }
 
+    // try to place queen in all rows of a column
     for i in 0..board.len() {
         if is_safe(board, i, col) {
+            // place the queen
             board[i][col] = 'Q';
 
+            // recur to place rest of the queen
             if solve_nq_util(board, col + 1) {
                 return true;
             }
 
+            // if there is no safe position, then do not place a queen
             board[i][col] = '-';
         }
     }

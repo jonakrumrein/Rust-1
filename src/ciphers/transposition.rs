@@ -41,16 +41,19 @@ pub fn transposition(key: &str, input: &str) -> String {
     let keyword_len = keyword.chars().count();
     let input_len = to_enc.chars().count();
 
+    // calculate missing fields in transposition table
     let missing_pos = if input_len % keyword_len == 0 {
         0
     } else {
         keyword_len - input_len % keyword_len
     };
 
+    // fill missing fields with 'X'
     for _ in 0..missing_pos {
         to_enc.push('X');
     }
 
+    // Sort columns by the alphanumeric value of the keyword characters
     let mut treemap = BTreeMap::new();
 
     for x in 0..keyword_len {
@@ -65,6 +68,7 @@ pub fn transposition(key: &str, input: &str) -> String {
         treemap.insert(keyword.chars().nth(x).unwrap(), col);
     }
 
+    // read characters from top to bottom and left to right
     let mut enc = String::from("");
 
     for value in treemap.values() {
